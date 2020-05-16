@@ -1,0 +1,161 @@
+Exercise 1 : Normalization
+
+The manager of the dinner club would like to manage the information system that assists him to keep track of who attends the dinners. Because the manager is not an expert of Information Systems, (s)he uses the following table to store the information. Please help the manger by using the knowledge of database normal forms. Show step by step
+
+
+
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+| member_id | member_name   | member_address | dinner_id | dinner_date | venue_code | venue_description | food_code | food_description |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+|         1 | Amit          | 325 Max park   | D00001001 | 2020-03-15  | B01        | Grand Ball Room   | C1, C2    | Curry, Cake      |
+|         2 | Ben           | 24 Hudson lane | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1, C2    | Soup, Cake       |
+|         3 | Cristina      | 516 6th Ave    | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1, C2    | Soup, Cake       |
+|         4 | Dan           | 89 John St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
+|         5 | Ema           | 91 Pixar St    | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
+|         6 | Fatima        | 56 8th Ave     | D00001004 | 2020-03-20  | B04        | Mama's Kitchen    | F1, M1    | Falafal, Mousse  |
+|         7 | Gabor         | 54 Vivaldi St  | D00001005 | 2020-02-20  | B05        | Hungry Hungary    | G1, P2    | Goulash, Pasca   |
+|         8 | Hema          | 9 Peter St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1, T1, M1| Pie, Tea, Mousse |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+
+How can you convert the table into 1NF ?
+
+for 1NF the rules are :
+ 1-single value attribute 
+ 2-attribute domain should not be changed
+ 3-unique name for attributes
+ 4-order does not matter
+
+So food_Code and food_description columns should be revised in order to have single value in each row ;
+
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+| member_id | member_name   | member_address | dinner_id | dinner_date | venue_code | venue_description | food_code | food_description |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+|         1 | Amit          | 325 Max park   | D00001001 | 2020-03-15  | B01        | Grand Ball Room   | C1        | Curry   
+          1 | Amit          | 325 Max park   | D00001001 | 2020-03-15  | B01        | Grand Ball Room   |     C2    |         Cake     |
+|         2 | Ben           | 24 Hudson lane | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1        | Soup 
+          2 | Ben           | 24 Hudson lane | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     |     C2    |        Cake      |
+|         3 | Cristina      | 516 6th Ave    | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     | S1        | Soup 
+          3 | Cristina      | 516 6th Ave    | D00001002 | 2020-03-15  | B02        | Zoku Roof Top     |     C2    |  Cake            |
+|         4 | Dan           | 89 John St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1        | Pie 
+          4 | Dan           | 89 John St     | D00001003 | 2020-03-20  | B03        | Goat Farm         |   T1      |   Tea   
+          4 | Dan           | 89 John St     | D00001003 | 2020-03-20  | B03        | Goat Farm         |         M1|           Mousse |
+|         5 | Ema           | 91 Pixar St    | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1        | Pie  
+          5 | Ema           | 91 Pixar St    | D00001003 | 2020-03-20  | B03        | Goat Farm         |     T1    |  Tea 
+          5 | Ema           | 91 Pixar St    | D00001003 | 2020-03-20  | B03        | Goat Farm         |         M1|            Mousse|
+|         6 | Fatima        | 56 8th Ave     | D00001004 | 2020-03-20  | B04        | Mama's Kitchen    | F1        | Falafal 
+          6 | Fatima        | 56 8th Ave     | D00001004 | 2020-03-20  | B04        | Mama's Kitchen    |     M1    |           Mousse |
+|         7 | Gabor         | 54 Vivaldi St  | D00001005 | 2020-02-20  | B05        | Hungry Hungary    | G1        | Goulash  
+          7 | Gabor         | 54 Vivaldi St  | D00001005 | 2020-02-20  | B05        | Hungry Hungary    |     P2    |           Pasca  |
+|         8 | Hema          | 9 Peter St     | D00001003 | 2020-03-20  | B03        | Goat Farm         | P1        | Pie 
+          8 | Hema          | 9 Peter St     | D00001003 | 2020-03-20  | B03        | Goat Farm         |     T1    |      Tea 
+          8 | Hema          | 9 Peter St     | D00001003 | 2020-03-20  | B03        | Goat Farm         |         M1|           Mousse |
++-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
+
+
+What are the super, candidate, primary keys ?
+
+Primary key : member_id + food_code 
+candidate key:{member_name+food_code} or {member_name+food_description}
+super key :{member_name+food_code+ food description} or {member_name+food_code+ venue_code }
+
+What are the potential relationships between different possible tables ?
+
+Food Table:
++-----------+------------------+
+| food_code | food_description |
++-----------+------------------+
+| C1        | Curry            |
+| C2        | Cake             |
+| S1        | Soup             |
+| P1        | Pie              |
+| T1        | Tea              |
+| M1        | Mousse           |
+| F1        | Falafal          |
+| G1        | Goulash          |
+| P2        | Pasca            |
++-----------+------------------+
+
+venue Table:
+
+venue_code | venue_description
+B01        | Grand Ball Room
+B02        | Zoku Roof Top 
+B03        | Goat Farm 
+B04        | Mama's Kitchen
+B05        | Hungry Hungary  
+B03        | Goat Farm   
+
+members table 
+
+ member_id | member_name   | member_address
+         1 | Amit          | 325 Max park
+         2 | Ben           | 24 Hudson lane
+         3 | Cristina      | 516 6th Ave
+         4 | Dan           | 89 John St  
+         5 | Ema           | 91 Pixar St
+         6 | Fatima        | 56 8th Ave   
+         7 | Gabor         | 54 Vivaldi St 
+         8 | Hema          | 9 Peter St   
+
+dinner table 
+
+dinner_id | dinner_date
+D00001001 | 2020-03-15 
+D00001002 | 2020-03-15
+D00001003 | 2020-03-20
+D00001004 | 2020-03-20
+D00001005 | 2020-02-20
+
+
+
+
+
+How can you develop the set of 2NF tables?
+
+The rule of 2NF normalization : no non-prime attribute should be functionally dependent on any proper subset of a candidate key.
+
+member_name & member_adress are depended on member_Id ,  food_description is depended on food_code So the tables should 
+be as per following :
+
+member_dinner table
+
+ member_id | dinner_id | dinner_date | venue_code | venue_description | food_code | 
+
+members table 
+
+ member_id | member_name   | member_address
+
+Food Table:
+
+| food_code | food_description |
+
+
+
+How can you develop the set of 3NF tables?
+
+no transitive dependency
+
+table-1
+
+| member_id | dinner_id | dinner_date | venue_code  | food_code | 
+
+
+table-2
+
+| member_id | member_name   | member_address 
+
+
+
+table-3
+
+ venue_code | venue_description |
+
+
+
+table-4
+
+ food_code | food_description |
+
+
+
+
